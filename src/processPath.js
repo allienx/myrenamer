@@ -16,10 +16,12 @@ function processPath({ renameDirectories = false, src, dest }) {
   })
 
   dirents.forEach((dirent) => {
-    const fullPathStr = path.join(src, dirent.name)
+    const oldPath = path.join(src, dirent.name)
 
     if (renameDirectories) {
-      renameDirectory({ dirPath: fullPathStr })
+      const newPath = renameDirectory({ dirPath: oldPath })
+
+      fs.renameSync(oldPath, newPath)
 
       numDirectories += 1
 
@@ -27,7 +29,7 @@ function processPath({ renameDirectories = false, src, dest }) {
     }
 
     if (dirent.isDirectory()) {
-      processPath({ src: fullPathStr, dest })
+      processPath({ src: oldPath, dest })
 
       numDirectories += 1
 
@@ -35,7 +37,9 @@ function processPath({ renameDirectories = false, src, dest }) {
     }
 
     if (dirent.isFile()) {
-      renameFile({ filePath: fullPathStr })
+      const newPath = renameFile({ filePath: oldPath })
+
+      fs.renameSync(oldPath, newPath)
 
       numFiles += 1
     }
