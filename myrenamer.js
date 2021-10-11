@@ -27,7 +27,11 @@ program
     const { dir, base } = path.parse(src)
     const dest = options.dest || path.join(dir, `${base}-myrenamer`)
 
-    const { numDirectories, numFiles } = processPath({ src, dest })
+    const { numDirectories, numFiles } = processPath({
+      renameDirectories: options.dirs,
+      src,
+      dest,
+    })
 
     if (options.dirs) {
       console.log(`Renamed ${numDirectories} directories.`)
