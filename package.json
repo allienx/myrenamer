@@ -1,0 +1,16 @@
+{
+  "name": "myrenamer",
+  "version": "1.0.0",
+  "description": "Rename files in bulk with custom rules.",
+  "main": "myrenamer.js",
+  "repository": "https://github.com/allienx/myrenamer",
+  "author": "Alex Lin <allienx@hashmail.cc>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "commander": "8.2.0"
+  },
+  "devDependencies": {
+    "prettier": "2.4.1"
+  }
+}
