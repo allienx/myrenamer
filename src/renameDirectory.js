@@ -1,5 +1,5 @@
 module.exports = renameDirectory
 
-function renameDirectory({ dirPath }) {
+function renameDirectory({ index, dirPath }) {
   return dirPath
 }

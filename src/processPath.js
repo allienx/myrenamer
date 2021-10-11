@@ -6,20 +6,20 @@ const renameFile = require('./renameFile')
 
 module.exports = processPath
 
-function processPath({ renameDirectories = false, src, dest }) {
-  let numDirectories = 0
-  let numFiles = 0
+let numDirectories = 0
+let numFiles = 0
 
+function processPath({ renameDirectories = false, src, dest }) {
   const dirents = fs.readdirSync(src, {
     encoding: 'utf-8',
     withFileTypes: true,
   })
 
-  dirents.forEach((dirent) => {
+  dirents.forEach((dirent, index) => {
     const oldPath = path.join(src, dirent.name)
 
     if (renameDirectories) {
-      const newPath = renameDirectory({ dirPath: oldPath })
+      const newPath = renameDirectory({ index, dirPath: oldPath })
 
       fs.renameSync(oldPath, newPath)
 
@@ -37,7 +37,7 @@ function processPath({ renameDirectories = false, src, dest }) {
     }
 
     if (dirent.isFile()) {
-      const newPath = renameFile({ filePath: oldPath })
+      const newPath = renameFile({ index, filePath: oldPath })
 
       fs.renameSync(oldPath, newPath)
 

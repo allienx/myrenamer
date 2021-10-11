@@ -1,5 +1,5 @@
 module.exports = renameFile
 
-function renameFile({ filePath }) {
+function renameFile({ index, filePath }) {
   return filePath
 }
