@@ -12,7 +12,7 @@ program.version('1.0.0')
 
 program
   .argument('<src>')
-  .option('--dry-run', 'log instead of perform rename', false)
+  .option('--dry-run', 'log new paths instead of rename', false)
   .option('--dirs', 'rename directories instead of files', false)
   .action((src, options) => {
     const srcStats = fs.lstatSync(src)
