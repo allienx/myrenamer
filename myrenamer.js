@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
-const { Command } = require('commander')
+import { Command } from 'commander'
 
-const processPath = require('./src/processPath')
+import processPath from './src/processPath.js'
 
 const program = new Command()
 

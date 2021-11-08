@@ -1,15 +1,13 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
-const renameDirectory = require('./renameDirectory')
-const renameFile = require('./renameFile')
-
-module.exports = processPath
+import getNewDirectoryName from './getNewDirectoryName.js'
+import getNewFilename from './getNewFilename.js'
 
 let numDirectories = 0
 let numFiles = 0
 
-function processPath({ renameDirectories = false, src, dest }) {
+export default function processPath({ renameDirectories = false, src, dest }) {
   const dirents = fs.readdirSync(src, {
     encoding: 'utf-8',
     withFileTypes: true,
@@ -19,7 +17,7 @@ function processPath({ renameDirectories = false, src, dest }) {
     const oldPath = path.join(src, dirent.name)
 
     if (renameDirectories) {
-      const newPath = renameDirectory({ index, dirPath: oldPath })
+      const newPath = getNewDirectoryName({ index, dirPath: oldPath })
 
       fs.renameSync(oldPath, newPath)
 
@@ -37,7 +35,7 @@ function processPath({ renameDirectories = false, src, dest }) {
     }
 
     if (dirent.isFile()) {
-      const newPath = renameFile({ index, filePath: oldPath })
+      const newPath = getNewFilename({ index, filePath: oldPath })
 
       fs.renameSync(oldPath, newPath)
 
