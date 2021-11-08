@@ -13,7 +13,8 @@ program.version('1.0.0')
 
 program
   .argument('<src>')
-  .option('--dirs', 'rename directories instead of files')
+  .option('--dry-run', 'log instead of perform rename', false)
+  .option('--dirs', 'rename directories instead of files', false)
   .option('-d, --dest <dest>', 'directory path for renamed files')
   .action((src, options) => {
     const srcStats = fs.lstatSync(src)
@@ -28,15 +29,16 @@ program
     const dest = options.dest || path.join(dir, `${base}-myrenamer`)
 
     const { numDirectories, numFiles } = processPath({
+      dryRun: options.dryRun,
       renameDirectories: options.dirs,
       src,
       dest,
     })
 
     if (options.dirs) {
-      console.log(`Renamed ${numDirectories} directories.`)
+      console.log(`\nRenamed ${numDirectories} directories.`)
     } else {
-      console.log(`Renamed ${numFiles} files.`)
+      console.log(`\nRenamed ${numFiles} files.`)
     }
   })
 

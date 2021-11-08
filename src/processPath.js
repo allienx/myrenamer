@@ -7,7 +7,12 @@ import getNewFilename from './getNewFilename.js'
 let numDirectories = 0
 let numFiles = 0
 
-export default function processPath({ renameDirectories = false, src, dest }) {
+export default function processPath({
+  dryRun = false,
+  renameDirectories = false,
+  src,
+  dest,
+}) {
   const dirents = fs.readdirSync(src, {
     encoding: 'utf-8',
     withFileTypes: true,
@@ -19,7 +24,11 @@ export default function processPath({ renameDirectories = false, src, dest }) {
     if (renameDirectories) {
       const newPath = getNewDirectoryName({ index, dirPath: oldPath })
 
-      fs.renameSync(oldPath, newPath)
+      if (dryRun) {
+        console.log(`${oldPath} => ${newPath}`)
+      } else {
+        fs.renameSync(oldPath, newPath)
+      }
 
       numDirectories += 1
 
@@ -37,7 +46,11 @@ export default function processPath({ renameDirectories = false, src, dest }) {
     if (dirent.isFile()) {
       const newPath = getNewFilename({ index, filePath: oldPath })
 
-      fs.renameSync(oldPath, newPath)
+      if (dryRun) {
+        console.log(`${oldPath} => ${newPath}`)
+      } else {
+        fs.renameSync(oldPath, newPath)
+      }
 
       numFiles += 1
     }
