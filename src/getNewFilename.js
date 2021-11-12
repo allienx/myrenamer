@@ -7,7 +7,7 @@ import toLowerFp from 'lodash/fp/toLower.js'
 export default function getNewFilename({ filePath }) {
   const { dir, name, ext } = path.parse(filePath)
   const newName = transformName(name)
-  const newExt = transformExtention(ext)
+  const newExt = transformExtension(ext)
 
   return path.join(dir, `${newName}${newExt}`)
 }
@@ -18,7 +18,7 @@ function transformName(name) {
   return transform(name)
 }
 
-function transformExtention(ext) {
+function transformExtension(ext) {
   const transform = flowFp(toLowerFp, toJpg)
 
   return transform(ext)
