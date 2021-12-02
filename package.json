@@ -9,7 +9,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "commander": "8.2.0"
+    "commander": "8.2.0",
+    "lodash": "4.17.21"
   },
   "devDependencies": {
     "prettier": "2.4.1"

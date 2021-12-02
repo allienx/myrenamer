@@ -1,49 +1,42 @@
 import fs from 'fs'
 import path from 'path'
 
-import getNewDirectoryName from './getNewDirectoryName.js'
+import sortBy from 'lodash/sortBy.js'
+
 import getNewFilename from './getNewFilename.js'
 
 let numDirectories = 0
 let numFiles = 0
 
-export default function processPath({
-  dryRun = false,
-  renameDirectories = false,
-  src,
-}) {
+export default function processPath({ dryRun = false, src }) {
   const dirents = fs.readdirSync(src, {
     encoding: 'utf-8',
     withFileTypes: true,
   })
 
-  dirents.forEach((dirent, index) => {
-    const oldPath = path.join(src, dirent.name)
+  const fileNameGroupings = {}
+  const fileNames = sortBy(
+    dirents
+      .filter((dirent) => dirent.isFile())
+      .filter((dirent) => dirent.name !== '.DS_Store')
+      .map((dirent) => dirent.name),
+  )
 
-    if (renameDirectories) {
-      const newPath = getNewDirectoryName({ index, dirPath: oldPath })
+  fileNames.forEach((fileName) => {
+    const { name } = path.parse(fileName)
 
-      if (dryRun) {
-        console.log(`${oldPath} => ${newPath}`)
-      } else {
-        fs.renameSync(oldPath, newPath)
-      }
+    const grouping = fileNameGroupings[name] || []
 
-      numDirectories += 1
+    grouping.push(path.join(src, fileName))
 
-      return
-    }
+    fileNameGroupings[name] = grouping
+  })
 
-    if (dirent.isDirectory()) {
-      processPath({ dryRun, renameDirectories, src: oldPath })
+  Object.values(fileNameGroupings).forEach((filePaths, index) => {
+    const newPaths = getNewFilename({ index, filePaths })
 
-      numDirectories += 1
-
-      return
-    }
-
-    if (dirent.isFile()) {
-      const newPath = getNewFilename({ index, filePath: oldPath })
+    newPaths.forEach((newPath, i) => {
+      const oldPath = filePaths[i]
 
       if (dryRun) {
         console.log(`${oldPath} => ${newPath}`)
@@ -52,7 +45,7 @@ export default function processPath({
       }
 
       numFiles += 1
-    }
+    })
   })
 
   return {
