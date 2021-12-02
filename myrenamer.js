@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import fs from 'fs'
-import path from 'path'
 
 import { Command } from 'commander'
 
@@ -15,7 +14,6 @@ program
   .argument('<src>')
   .option('--dry-run', 'log instead of perform rename', false)
   .option('--dirs', 'rename directories instead of files', false)
-  .option('-d, --dest <dest>', 'directory path for renamed files')
   .action((src, options) => {
     const srcStats = fs.lstatSync(src)
 
@@ -25,14 +23,10 @@ program
       return
     }
 
-    const { dir, base } = path.parse(src)
-    const dest = options.dest || path.join(dir, `${base}-myrenamer`)
-
     const { numDirectories, numFiles } = processPath({
       dryRun: options.dryRun,
       renameDirectories: options.dirs,
       src,
-      dest,
     })
 
     if (options.dirs) {

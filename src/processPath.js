@@ -11,7 +11,6 @@ export default function processPath({
   dryRun = false,
   renameDirectories = false,
   src,
-  dest,
 }) {
   const dirents = fs.readdirSync(src, {
     encoding: 'utf-8',
@@ -36,7 +35,7 @@ export default function processPath({
     }
 
     if (dirent.isDirectory()) {
-      processPath({ src: oldPath, dest })
+      processPath({ src: oldPath })
 
       numDirectories += 1
 
