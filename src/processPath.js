@@ -35,7 +35,7 @@ export default function processPath({
     }
 
     if (dirent.isDirectory()) {
-      processPath({ src: oldPath })
+      processPath({ dryRun, renameDirectories, src: oldPath })
 
       numDirectories += 1
 
