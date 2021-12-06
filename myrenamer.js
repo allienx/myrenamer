@@ -30,9 +30,9 @@ program
     })
 
     if (options.dirs) {
-      console.log(`\nRenamed ${numDirectories} directories.`)
+      console.log(`\nRemoved ${numDirectories} directories.`)
     } else {
-      console.log(`\nRenamed ${numFiles} files.`)
+      console.log(`\nRemoved ${numFiles} files.`)
     }
   })
 
