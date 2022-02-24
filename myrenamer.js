@@ -14,6 +14,7 @@ program
   .argument('<src>')
   .option('--dry-run', 'log instead of perform rename', false)
   .option('--dirs', 'rename directories instead of files', false)
+  .requiredOption('--prefix <prefix>', 'the filename prefix')
   .action((src, options) => {
     const srcStats = fs.lstatSync(src)
 
@@ -26,6 +27,7 @@ program
     const { numDirectories, numFiles } = processPath({
       dryRun: options.dryRun,
       renameDirectories: options.dirs,
+      prefix: options.prefix,
       src,
     })
 

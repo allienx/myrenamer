@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import sortBy from 'lodash/sortBy.js'
 
 import getNewDirectoryName from './getNewDirectoryName.js'
 import getNewFilename from './getNewFilename.js'
@@ -10,6 +11,7 @@ let numFiles = 0
 export default function processPath({
   dryRun = false,
   renameDirectories = false,
+  prefix,
   src,
 }) {
   const dirents = fs.readdirSync(src, {
@@ -17,7 +19,7 @@ export default function processPath({
     withFileTypes: true,
   })
 
-  dirents.forEach((dirent, index) => {
+  sortBy(dirents, 'name').forEach((dirent, index) => {
     const oldPath = path.join(src, dirent.name)
 
     if (renameDirectories) {
@@ -43,7 +45,7 @@ export default function processPath({
     }
 
     if (dirent.isFile()) {
-      const newPath = getNewFilename({ index, filePath: oldPath })
+      const newPath = getNewFilename({ index, prefix, filePath: oldPath })
 
       if (dryRun) {
         console.log(`${oldPath} => ${newPath}`)
