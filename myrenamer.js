@@ -1,47 +1,47 @@
 #!/usr/bin/env node
 
-import fs from 'fs'
-
 import { Command } from 'commander'
+import round from 'lodash/round.js'
 
-import processPath from './src/processPath.js'
+import tv from './src/tv.js'
 
 const program = new Command()
 
-program.version('1.0.0')
+async function main() {
+  program
+    .name('myrenamer')
+    .version('1.0.0')
+    .description('Script for renaming files in bulk.')
 
-program
-  .argument('<src>')
-  .option('--dry-run', 'log instead of perform rename', false)
-  .option('--dirs', 'rename directories instead of files', false)
-  .action((src, options) => {
-    const srcStats = fs.lstatSync(src)
+  program
+    .command('tv <dir>')
+    .description('Rename TV episode files found in <dir>.')
+    .option(
+      '--dry-run',
+      'log new file paths without performing any action',
+      false,
+    )
+    .requiredOption('-k, --apiKey <apiKey>', 'TMDB API key')
+    .requiredOption('-i, --tvId <tvId>', 'TMDB TV id')
+    .requiredOption('-s, --season <season>', "the season's episodes to rename")
+    .action(async (dir, opts) => {
+      const { apiKey, dryRun, tvId, season } = opts
 
-    if (!srcStats.isDirectory()) {
-      console.log(`The path "${src}" MUST be a directory...`)
-
-      return
-    }
-
-    const { numDirectories, numFiles } = processPath({
-      dryRun: options.dryRun,
-      renameDirectories: options.dirs,
-      src,
+      await tv({ apiKey, dir, dryRun, tvId, season })
     })
 
-    if (options.dirs) {
-      console.log(`\nRenamed ${numDirectories} directories.`)
-    } else {
-      console.log(`\nRenamed ${numFiles} files.`)
-    }
-  })
+  await program.parseAsync(process.argv)
+}
 
 const start = Date.now()
 
-program.parse(process.argv)
+main()
+  .catch((err) => {
+    console.error(err)
+  })
+  .finally(() => {
+    const end = Date.now()
+    const duration = round((end - start) / 1000, 2)
 
-const end = Date.now()
-const seconds = (end - start) / 1000
-const rounded = seconds.toFixed(2)
-
-console.log(`\n✨  Done in ${rounded}s.`)
+    console.log(`✨  Done ${duration}s.`)
+  })
