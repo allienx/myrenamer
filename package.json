@@ -1,17 +1,19 @@
 {
   "name": "myrenamer",
   "version": "1.0.0",
-  "description": "Rename files in bulk with custom rules.",
-  "main": "myrenamer.js",
+  "private": true,
+  "description": "Script for renaming files in bulk.",
   "repository": "https://github.com/allienx/myrenamer",
   "author": "Alex Lin <allienx@hashmail.cc>",
   "license": "MIT",
-  "private": true,
+  "packageManager": "yarn@3.5.1",
   "type": "module",
-  "dependencies": {
-    "commander": "8.2.0"
-  },
+  "main": "myrenamer.js",
+  "bin": "mytv.js",
   "devDependencies": {
-    "prettier": "2.4.1"
+    "prettier": "2.8.8"
+  },
+  "dependencies": {
+    "commander": "10.0.1"
   }
 }
