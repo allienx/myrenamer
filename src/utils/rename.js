@@ -5,6 +5,7 @@ import path from 'path'
 export default async function rename({
   dir,
   dryRun,
+  recursive,
   getSortedPaths,
   getNewName,
 }) {
@@ -12,7 +13,7 @@ export default async function rename({
 
   // Per node-glob documentation, always use '/' as the path separator.
   const globDir = dir.replace('\\', '/')
-  const globPaths = await glob(`${globDir}/*`)
+  const globPaths = await glob(recursive ? `${globDir}/**/*` : `${globDir}/*`)
   const filePaths = getSortedPaths ? getSortedPaths(globPaths) : globPaths
 
   for (let i = 0; i < filePaths.length; i++) {

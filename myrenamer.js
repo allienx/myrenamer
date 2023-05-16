@@ -3,6 +3,7 @@
 import { Command } from 'commander'
 import round from 'lodash/round.js'
 
+import lowercase from './src/lowercase.js'
 import tv from './src/tv.js'
 
 const program = new Command()
@@ -12,6 +13,21 @@ async function main() {
     .name('myrenamer')
     .version('1.0.0')
     .description('Script for renaming files in bulk.')
+
+  program
+    .command('lowercase <dir>')
+    .description('Rename files in <dir> to lowercase.')
+    .option(
+      '--dry-run',
+      'log new file paths without performing any action',
+      false,
+    )
+    .option('-r, --recursive', 'find files in nested directories', false)
+    .action(async (dir, opts) => {
+      const { dryRun, recursive } = opts
+
+      await lowercase({ dir, dryRun, recursive })
+    })
 
   program
     .command('tv <dir>')
