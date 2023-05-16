@@ -26,7 +26,7 @@ export default async function tv({ apiKey, dir, dryRun, tvId, season }) {
     // Assume the episode files are already in ascending order.
     getSortedPaths: sortBy,
 
-    getNewName: ({ index }) => {
+    getNewName: ({ index, ext }) => {
       const episode = seasonDetails.episodes[index]
       const showName = tvDetails.name
       const episodeName = episode.name
@@ -35,10 +35,11 @@ export default async function tv({ apiKey, dir, dryRun, tvId, season }) {
 
       const seasonStr = `s${padStart(seasonNumber, 2, '0')}`
       const episodeStr = `e${padStart(episodeNumber, 2, '0')}`
-
-      return `${showName} - ${seasonStr}${episodeStr} - ${episodeName}`
+      const newName = `${showName} - ${seasonStr}${episodeStr} - ${episodeName}`
         .replace('?', '')
         .replace(':', ' - ')
+
+      return `${newName}${ext.toLowerCase()}`
     },
   })
 }

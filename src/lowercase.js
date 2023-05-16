@@ -1,4 +1,3 @@
-import path from 'path'
 import rename from './utils/rename.js'
 
 export default async function lowercase({ dir, dryRun, recursive }) {
@@ -7,10 +6,8 @@ export default async function lowercase({ dir, dryRun, recursive }) {
     dryRun,
     recursive,
 
-    getNewName: ({ filePath }) => {
-      const { name } = path.parse(filePath)
-
-      return name.toLowerCase()
+    getNewName: ({ name, ext }) => {
+      return `${name.toLowerCase()}${ext.toLowerCase()}`
     },
   })
 }

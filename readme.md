@@ -17,11 +17,11 @@ Options:
 
 ```sh
 $ node myrenamer.js lowercase --dry-run --recursive dist
+[DRY-RUN] dist/cCc.txt -> dist/ccc.txt
 [DRY-RUN] dist/aaa.txt -> dist/aaa.txt
-[DRY-RUN] dist/CCC.txt -> dist/ccc.txt
-[DRY-RUN] dist/BbB.txt -> dist/bbb.txt
-[DRY-RUN] dist/dir1/aAa.txt -> dist/dir1/aaa.txt
-[DRY-RUN] dist/dir1/dirdir1/AAA.txt -> dist/dir1/dirdir1/aaa.txt
+[DRY-RUN] dist/BBB.TXT -> dist/bbb.txt
+[DRY-RUN] dist/dir1/aaA.txt -> dist/aaa.txt
+[DRY-RUN] dist/dir1/dirdir1/AAA.TXT -> dist/aaa.txt
 [DRY-RUN] Renamed 5 files.
 ✨  Done 0.01s.
 ```

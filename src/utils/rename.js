@@ -24,15 +24,18 @@ export default async function rename({
       continue
     }
 
+    const { dir: fileDir, name, ext } = path.parse(filePath)
     const newFileName = getNewName({
       index: i,
       filePath,
+      fileDir,
+      name,
+      ext,
       isDirectory: stats.isDirectory(),
       isFile: stats.isFile(),
     })
 
-    const { dir, ext } = path.parse(filePath)
-    const newFilePath = `${path.join(dir, newFileName)}${ext}`
+    const newFilePath = `${path.join(dir, newFileName)}`
 
     if (dryRun) {
       console.log(`[DRY-RUN] ${filePath} -> ${newFilePath}`)
