@@ -4,6 +4,7 @@ import { Command } from 'commander'
 import round from 'lodash/round.js'
 
 import lowercase from './src/lowercase.js'
+import suffix from './src/suffix.js'
 import tv from './src/tv.js'
 
 const program = new Command()
@@ -27,6 +28,25 @@ async function main() {
       const { dryRun, recursive } = opts
 
       await lowercase({ dir, dryRun, recursive })
+    })
+
+  program
+    .command('suffix <dir>')
+    .description('Rename files in <dir> with the specified suffix.')
+    .option(
+      '--dry-run',
+      'log new file paths without performing any action',
+      false,
+    )
+    .option('-r, --recursive', 'find files in nested directories', false)
+    .requiredOption(
+      '-w, --word <word>',
+      'the suffix to append to every file name',
+    )
+    .action(async (dir, opts) => {
+      const { dryRun, recursive, word } = opts
+
+      await suffix({ dir, dryRun, recursive, word })
     })
 
   program

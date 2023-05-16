@@ -25,6 +25,13 @@ export default async function rename({
     }
 
     const { dir: fileDir, name, ext } = path.parse(filePath)
+
+    // Skip hidden macOS Icon? files, is there a better way to do this?
+    if (name === 'Icon\r') {
+      console.log("Skipping 'Icon?' file...")
+      continue
+    }
+
     const newFileName = getNewName({
       index: i,
       filePath,
@@ -35,7 +42,7 @@ export default async function rename({
       isFile: stats.isFile(),
     })
 
-    const newFilePath = `${path.join(dir, newFileName)}`
+    const newFilePath = `${path.join(fileDir, newFileName)}`
 
     if (dryRun) {
       console.log(`[DRY-RUN] ${filePath} -> ${newFilePath}`)
