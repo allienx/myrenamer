@@ -18,6 +18,10 @@ export default async function tv({ apiKey, dir, dryRun, tvId, season }) {
     method: 'GET',
     url: TmdbApi.tvSeasonDetailsUrl(tvId, season),
   })
+  const showName = tvDetails.name
+  const episodes = seasonDetails.episodes || []
+
+  console.log(`${showName} - Season ${season} - ${episodes.length} episodes\n`)
 
   await rename({
     dir,
@@ -27,8 +31,7 @@ export default async function tv({ apiKey, dir, dryRun, tvId, season }) {
     getSortedPaths: sortBy,
 
     getNewName: ({ index, ext }) => {
-      const episode = seasonDetails.episodes[index]
-      const showName = tvDetails.name
+      const episode = episodes[index]
       const episodeName = episode.name
       const seasonNumber = episode.season_number
       const episodeNumber = episode.episode_number
