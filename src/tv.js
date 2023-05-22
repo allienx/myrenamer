@@ -39,8 +39,9 @@ export default async function tv({ apiKey, dir, dryRun, tvId, season }) {
       const seasonStr = `s${padStart(seasonNumber, 2, '0')}`
       const episodeStr = `e${padStart(episodeNumber, 2, '0')}`
       const newName = `${showName} - ${seasonStr}${episodeStr} - ${episodeName}`
-        .replace('?', '')
-        .replace(':', ' - ')
+        .replace(/"/g, "'")
+        .replace(/\?/g, '')
+        .replace(/:/g, ' - ')
 
       return `${newName}${ext.toLowerCase()}`
     },
