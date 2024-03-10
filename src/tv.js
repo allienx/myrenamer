@@ -4,7 +4,7 @@ import ApiClient from './tmdb/api-client.js'
 import TmdbApi from './tmdb/tmdb-api.js'
 import rename from './utils/rename.js'
 
-export default async function tv({ apiKey, dir, dryRun, tvId, season }) {
+export async function tv({ apiKey, dir, dryRun, tvId, season }) {
   const tmdbApi = new ApiClient({
     params: {
       api_key: apiKey,

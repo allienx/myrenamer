@@ -3,9 +3,8 @@
 import { Command } from 'commander'
 import round from 'lodash/round.js'
 
-import lowercase from './src/lowercase.js'
-import suffix from './src/suffix.js'
-import tv from './src/tv.js'
+import { run } from './src/run.js'
+import { tv } from './src/tv.js'
 
 const start = Date.now()
 
@@ -29,37 +28,28 @@ async function main() {
     .description('Script for renaming files in bulk.')
 
   program
-    .command('lowercase <dir>')
-    .description('Rename files in <dir> to lowercase.')
+    .command('run <dir>', { isDefault: true })
+    .description('Rename files in <dir> according to options')
     .option(
       '--dry-run',
       'log new file paths without performing any action',
       false,
     )
     .option('-r, --recursive', 'find files in nested directories', false)
-    .action(async (dir, opts) => {
-      const { dryRun, recursive } = opts
-
-      await lowercase({ dir, dryRun, recursive })
-    })
-
-  program
-    .command('suffix <dir>')
-    .description('Rename files in <dir> with the specified suffix.')
+    .option('--sort-a-z', 'sort the files alphabetically', false)
+    .option('--no-preserve', "don't preserve the original file name", false)
+    .option('-l, --lowercase', 'transform file names to lowercase', false)
+    .option('-p, --prefix <prefix>', 'add a prefix to each file name')
+    .option('-s, --suffix <suffix>', 'add a suffix to each file name')
     .option(
-      '--dry-run',
-      'log new file paths without performing any action',
-      false,
-    )
-    .option('-r, --recursive', 'find files in nested directories', false)
-    .requiredOption(
-      '-w, --word <word>',
-      'the suffix to append to every file name',
+      '-i, --increment <increment>',
+      'add an incremented number suffix to each file name',
     )
     .action(async (dir, opts) => {
-      const { dryRun, recursive, word } = opts
-
-      await suffix({ dir, dryRun, recursive, word })
+      await run({
+        dir,
+        ...opts,
+      })
     })
 
   program
