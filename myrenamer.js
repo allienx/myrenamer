@@ -37,6 +37,7 @@ async function main() {
     )
     .option('-r, --recursive', 'find files in nested directories', false)
     .option('--sort-a-z', 'sort the files alphabetically', false)
+    .option('--preserve', 'preserve the original file name', true)
     .option('--no-preserve', "don't preserve the original file name", false)
     .option('-l, --lowercase', 'transform file names to lowercase', false)
     .option('-p, --prefix <prefix>', 'add a prefix to each file name')

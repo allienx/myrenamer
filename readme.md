@@ -57,11 +57,11 @@ Options:
 
 ```sh
 $ node myrenamer.js --dry-run -r -l dist
-[DRY-RUN] dist/ccc.txt -> dist/.txt
-[DRY-RUN] dist/bbb.txt -> dist/.txt
-[DRY-RUN] dist/aaa.txt -> dist/.txt
-[DRY-RUN] dist/dir1/aaA.txt -> dist/dir1/.txt
-[DRY-RUN] dist/dir1/dirdir1/AAA.TXT -> dist/dir1/dirdir1/.txt
+[DRY-RUN] dist/bbb.txt -> dist/bbb.txt
+[DRY-RUN] dist/aAa.txt -> dist/aaa.txt
+[DRY-RUN] dist/CCC.txt -> dist/ccc.txt
+[DRY-RUN] dist/dir1/aaA.txt -> dist/dir1/aaa.txt
+[DRY-RUN] dist/dir1/dirdir1/AAA.TXT -> dist/dir1/dirdir1/aaa.txt
 [DRY-RUN] Renamed 5 files.
 ✨  Done 0.01s.
 ```
