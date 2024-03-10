@@ -290,7 +290,7 @@ __metadata:
     lodash: 4.17.21
     prettier: 2.8.8
   bin:
-    myrenamer: mytv.js
+    myrenamer: myrenamer.js
   languageName: unknown
   linkType: soft
 
