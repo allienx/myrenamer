@@ -1,22 +1,27 @@
 {
   "name": "myrenamer",
   "version": "1.0.0",
-  "private": true,
   "description": "Script for renaming files in bulk.",
-  "repository": "https://github.com/allienx/myrenamer",
-  "author": "Alex Lin <allienx@hashmail.cc>",
-  "license": "MIT",
-  "packageManager": "yarn@3.5.1",
   "type": "module",
   "main": "myrenamer.js",
   "bin": "myrenamer.js",
-  "devDependencies": {
-    "prettier": "2.8.8"
+  "author": "Alex Lin <allienx@hashmail.cc>",
+  "license": "MIT",
+  "homepage": "https://github.com/allienx/myrenamer#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allienx/myrenamer"
+  },
+  "bugs": {
+    "url": "https://github.com/allienx/myrenamer/issues"
   },
   "dependencies": {
-    "axios": "1.4.0",
-    "commander": "10.0.1",
-    "glob": "10.2.3",
+    "axios": "1.6.7",
+    "commander": "12.0.0",
+    "glob": "10.3.10",
     "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "prettier": "2.8.8"
   }
 }

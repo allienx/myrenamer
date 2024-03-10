@@ -7,9 +7,22 @@ import lowercase from './src/lowercase.js'
 import suffix from './src/suffix.js'
 import tv from './src/tv.js'
 
-const program = new Command()
+const start = Date.now()
+
+main()
+  .catch((err) => {
+    console.error(err)
+  })
+  .finally(() => {
+    const end = Date.now()
+    const duration = round((end - start) / 1000, 2)
+
+    console.log(`✨  Done ${duration}s.`)
+  })
 
 async function main() {
+  const program = new Command()
+
   program
     .name('myrenamer')
     .version('1.0.0')
@@ -68,16 +81,3 @@ async function main() {
 
   await program.parseAsync(process.argv)
 }
-
-const start = Date.now()
-
-main()
-  .catch((err) => {
-    console.error(err)
-  })
-  .finally(() => {
-    const end = Date.now()
-    const duration = round((end - start) / 1000, 2)
-
-    console.log(`✨  Done ${duration}s.`)
-  })
