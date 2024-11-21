@@ -37,8 +37,14 @@ async function main() {
     )
     .option('-r, --recursive', 'find files in nested directories', false)
     .option('--sort-a-z', 'sort the files alphabetically', false)
+    .option('--sort-0-9', 'sort the files in ascending order as numbers', false)
     .option('--preserve', 'preserve the original file name', true)
     .option('--no-preserve', "don't preserve the original file name", false)
+    .option('-x, --remove <remove>', 'text to remove from each file name')
+    .option(
+      '-n, --pad <pad>',
+      'pad the existing file name with zeroes (useful if existing filenames are numbers)',
+    )
     .option('-l, --lowercase', 'transform file names to lowercase', false)
     .option('-p, --prefix <prefix>', 'add a prefix to each file name')
     .option('-s, --suffix <suffix>', 'add a suffix to each file name')

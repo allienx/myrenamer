@@ -1,5 +1,6 @@
 import compact from 'lodash/compact.js'
 import sortBy from 'lodash/sortBy.js'
+import path from 'path'
 import rename from './utils/rename.js'
 
 export async function run({
@@ -7,7 +8,10 @@ export async function run({
   dryRun,
   recursive,
   sortAZ,
+  sort09,
   preserve,
+  remove,
+  pad,
   lowercase,
   prefix,
   suffix,
@@ -20,11 +24,33 @@ export async function run({
     dryRun,
     recursive,
 
-    getSortedPaths: sortAZ ? sortBy : undefined,
+    getSortedPaths: (filePaths) => {
+      if (sortAZ) {
+        return sortBy(filePaths)
+      }
+
+      if (sort09) {
+        return sortBy(filePaths, (filePath) => {
+          const { name } = path.parse(filePath)
+
+          return Number(name)
+        })
+      }
+
+      return filePaths
+    },
 
     getNewName: ({ index, name, ext }) => {
       let newName = preserve ? name : ''
       let newExt = ext
+
+      if (remove) {
+        newName = newName.replace(remove, '')
+      }
+
+      if (pad) {
+        newName = newName.padStart(pad, '0')
+      }
 
       if (lowercase) {
         newName = newName.toLowerCase()
