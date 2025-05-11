@@ -17,8 +17,6 @@ export async function run({
   suffix,
   increment,
 }) {
-  const separator = '-'
-
   await rename({
     dir,
     dryRun,
@@ -58,11 +56,11 @@ export async function run({
       }
 
       if (prefix) {
-        newName = compact([prefix, newName]).join(separator)
+        newName = compact([prefix, newName]).join('')
       }
 
       if (suffix) {
-        newName = compact([newName, suffix]).join(separator)
+        newName = compact([newName, suffix]).join('')
       }
 
       // Add one to the index to avoid zero based increments.
@@ -70,7 +68,7 @@ export async function run({
         const num = index + 1
         const numWithPadding = num.toString().padStart(increment, '0')
 
-        newName = compact([newName, numWithPadding]).join(separator)
+        newName = compact([newName, numWithPadding]).join('-')
       }
 
       return newName + newExt
